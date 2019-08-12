@@ -240,7 +240,14 @@ def rpkm_plot(data, rpkm_data, rpkm_data_mean_stddev):
             # rapa_data.data.update(rapa_data_new.data)
             # no_rapa_data.data.update(no_rapa_data_new.data)
             rapa_data.data["logRPKM"] = [0, 0, 0, 0, 0, 0]
+            rapa_data.data["std"] = [0, 0, 0, 0, 0, 0]
+            rapa_data.data["up_std"] = [0, 0, 0, 0, 0, 0]
+            rapa_data.data["low_std"] = [0, 0, 0, 0, 0, 0]
+
             no_rapa_data.data["logRPKM"] = [0, 0, 0, 0, 0, 0]
+            no_rapa_data.data["std"] = [0, 0, 0, 0, 0, 0]
+            no_rapa_data.data["up_std"] = [0, 0, 0, 0, 0, 0]
+            no_rapa_data.data["low_std"] = [0, 0, 0, 0, 0, 0]
 
         # print(geness_data.data.keys())
         # print('TEST')
