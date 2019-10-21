@@ -33,10 +33,10 @@ def all_rpkm_plot(data):
     sample_list.remove("gene_id")
 
     sample1 = Select(
-        title="Sample 1:", value="SRX3653185_30h_no_1", options=sample_list
+        title="Sample 1:", value="30h_1 Rapamycin (SRX365318)", options=sample_list
     )
     sample2 = Select(
-        title="Sample 2:", value="SRX3653188_30h_yes_1", options=sample_list
+        title="Sample 2:", value="30h_1 No Rapamycin (SRX365318)", options=sample_list
     )
     sample_data = make_dataset(sample1.value, sample2.value)
 
@@ -46,7 +46,7 @@ def all_rpkm_plot(data):
         base_plot_options = dict(
             width=800,
             plot_height=800,
-            tools=["lasso_select, pan, reset, wheel_zoom, box_zoom"],
+            tools=["box_select, pan, wheel_zoom, box_zoom, reset"],
         )
 
         hover_gene_id = HoverTool(tooltips=[("Gene ID", "@gene_id")])
@@ -89,7 +89,7 @@ def all_rpkm_plot(data):
             text_font_size="9pt",
         )
 
-        p2 = figure(**plot_options, title="Sample 2")
+        p2 = figure(**plot_options, title="Sample 2(coloured by logRPKM)")
         p2.circle(
             "x",
             "y",
@@ -135,6 +135,8 @@ def all_rpkm_plot(data):
         p1.yaxis.major_label_text_font_size = (
             "0pt"
         )  # preferred method for removing tick labels
+        p1.xaxis.axis_label = "UMAP1"
+        p1.yaxis.axis_label = "UMAP2"
 
         p2.xaxis.major_tick_line_color = None  # turn off x-axis major ticks
         p2.xaxis.minor_tick_line_color = None  # turn off x-axis minor ticks
@@ -146,6 +148,8 @@ def all_rpkm_plot(data):
         p2.yaxis.major_label_text_font_size = (
             "0pt"
         )  # preferred method for removing tick labels
+        p2.xaxis.axis_label = "UMAP1"
+        p2.yaxis.axis_label = "UMAP2"
 
         # Datatable
         selected_data = ColumnDataSource(
@@ -215,7 +219,7 @@ def all_rpkm_plot(data):
         return p1, p2, data_table
 
     # Samples check list
-    sample_list = data.columns.tolist()
+    sample_list = sorted(data.columns.tolist())
     sample_list.remove("x")
     sample_list.remove("y")
     sample_list.remove("gene_id")
@@ -224,10 +228,14 @@ def all_rpkm_plot(data):
     text_input = TextInput(value="PBANKA_1106000", title="Find Gene ID:")
 
     sample1 = Select(
-        title="Sample 1 selection:", value="SRX3653185_30h_no_1", options=sample_list
+        title="Sample 1 selection:",
+        value="30h_1 Rapamycin (SRX365318)",
+        options=sample_list,
     )
     sample2 = Select(
-        title="Sample 2 selection:", value="SRX3653188_30h_yes_1", options=sample_list
+        title="Sample 2 selection:",
+        value="30h_1 No Rapamycin (SRX365318)",
+        options=sample_list,
     )
     sample_data = make_dataset(sample1.value, sample2.value)
     highlight_data = make_highlight_dataset(text_input.value)

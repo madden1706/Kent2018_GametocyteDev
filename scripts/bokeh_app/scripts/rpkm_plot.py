@@ -123,6 +123,8 @@ def rpkm_plot(data, rpkm_data, rpkm_data_mean_stddev):
         xy_data.yaxis.major_label_text_font_size = (
             "0pt"
         )  # preferred method for removing tick labels
+        xy_data.xaxis.axis_label = "UMAP1"
+        xy_data.yaxis.axis_label = "UMAP2"
 
         rpkm_data_plot.xaxis.major_tick_line_color = None  # turn off x-axis major ticks
         rpkm_data_plot.xaxis.minor_tick_line_color = None  # turn off x-axis minor ticks
@@ -134,14 +136,15 @@ def rpkm_plot(data, rpkm_data, rpkm_data_mean_stddev):
         rpkm_data_plot.yaxis.major_label_text_font_size = (
             "0pt"
         )  # preferred method for removing tick labels
-
+        rpkm_data_plot.xaxis.axis_label = "UMAP1"
+        rpkm_data_plot.yaxis.axis_label = "UMAP2"
         # Final plot
         # final= layout([[xy_data, rpkm_data_plot]])
         return xy_data, rpkm_data_plot
 
     def make_plot_time_plot(rapa_data, no_rapa_data):
 
-        p = figure(width=600, height=400, title="logRPKM Change Over Time")
+        p = figure(width=600, height=400, title="logRPKM Change Over Time", tools=[])
 
         p.xaxis.axis_label = "Time (h)"
         p.yaxis.axis_label = "logRPKM"
@@ -260,7 +263,7 @@ def rpkm_plot(data, rpkm_data, rpkm_data_mean_stddev):
     # final = layout([[text_input], [p], [time_p]])
 
     final = gridplot(
-        children=[[text_input, None, None], [p1, p2, time_p]],
+        children=[[text_input, None, None], [p1, p2], [time_p]],
         toolbar_location="above",
         sizing_mode="fixed",
     )
